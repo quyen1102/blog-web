@@ -1,0 +1,21 @@
+<div class="mt-4 ">
+    <div class="col" >
+
+        {{#each blogs}}
+        <div class="col-sm-6 col-lg4 blog">
+            <div class="card blog-item"  >
+                <a href="/blogs/{{this.slug}}">
+                <img src="{{this.img}}" class="card-img-top" alt="..."  >
+                </a>
+                <div class="card-body">
+                    <a class="title" href="/blogs/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.description}}</p>
+                    <button type="button" class="btn btn-dark" name="like" id="like" value="1">Like</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

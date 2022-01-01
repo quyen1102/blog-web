@@ -1,0 +1,24 @@
+@import 'variable';
+
+.blog-item {
+    margin: 10px;
+   
+}
+.title {
+    text-decoration: none;
+    color: #333;
+}
+.title:hover{
+    color:#333;
+    opacity: 0.9;
+}
+.blog {
+    margin: 0 auto;
+}
+.blog-content > img {
+    width: 300px;
+    height: auto;
+}
+.blog-content > h1 {
+    color: rgb(12, 22, 51);
+}

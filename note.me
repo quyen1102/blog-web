@@ -1,0 +1,51 @@
+#Những thứ cần nhớ
+-- Trong node js có thư viện path , quản lí việc liên qua đến đường dẫn
+
+xem lại những gì đã làm
+    - file src quản lí các file 
+    - public : quản lí các file tĩnh của trang web css, js, img
+    - resource: quản lí file cấp cao hơn, quản lí views, layout partials,
+    - scss: c
+    cách chạy projec: 
+        b1: chạy server npm start 
+        b2 : mở npm run watch 
+
+Basic routing: định nghĩa tuyến đường truy cập web site 
+    request(req): chứa những thông tin mà người dùng muốn gửi lên server
+        khi khớp một tuyến đường nào đó trên backend thì nó sẽ thực thi request 
+
+    response : phản hồi 
+        khi nhận được request thì sever sẽ sử lý dữ liệu, trả về qua response
+        tùy trọn cấu hình set up trả về cái gì
+        biết response sinh ra để điểu chỉnh, trả về là gì
+
+================================================================================================================================
+GET METHOD
+
+get: dùng để lấy dữ liệu
+mặc định trình duyệt gửi đi phương thức get 
+================================================================================================================================
+ Query parameters : giá trị truyền vào  khi search ,
+                    các giá trị đó sẽ dc lưu vào query như một object 
+================================================================================================================================
+Form defaut behavior: Hàm vi mặc định của form trong HTML
+hành vi nhấp một botton ,reload lại trang , đính thêm request thì gọi là submit
+    - Khi submit với phương thức là post thì reload lại trang thì nó vẫn là post
+    - method: submit với phương thức nào
+    - action: submit ở đâu, url nào, default là chính trang hiện tại
+================================================================================================================================
+POST method: Là phương thức gửi req lên sever (client -> server) API là phía server
+    ////////// tìm hiểu thêm, đọc thêm: search ( body parse npm )
+================================================================================================================================
+Mô hình MVC:
+    gồm views, model, controller
+    views: chứa file views, html css,
+    model: tương tác resource, nội dung, database,
+    controller: trung chuyển views sang model, 
+        controller: gồm web server
+                        router
+                        dispatcher
+           tìm hiểu về router & controller
+           mô hình client & server là gì?
+
+================================================================================================================================

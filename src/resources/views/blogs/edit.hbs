@@ -1,0 +1,21 @@
+<div class="mt-4" style="max-width: 50%;">
+    <h3>Sửa bài viết: </h3>
+
+    <form  method="post" action="/blogs/{{blog._id}}?_method=PUT">
+        <div class="mb-3">
+            <label for="name" class="form-label">Tiêu đề</label>
+            <input type="text" class="form-control" value="{{blog.name}}" id="name" name="name">
+         </div>
+
+          <div class="mb-3">
+            <label for="img" class="form-label">Path image</label>
+            <input type="text" class="form-control" value="{{blog.img}}" id="img" name="img">
+         </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Nội dung: </label>
+            <textarea class="form-control"  id="description" name="description" rows="3">{{blog.description}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-dark">Lưu</button>
+    </form>
+</div>

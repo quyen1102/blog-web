@@ -1,0 +1,161 @@
+<form name="form-container" action="/blogs/handle-trash-form-action" class="mt 4" method="POST">
+  
+   <div class="containers-heading ">
+      <a href="/me/stored/blogs" style="color: black; font-size: 36px;"><i class="fas fa-chevron-left"></i></a>
+      <div>
+        <h3>Blog đã bị xóa</h3>
+      </div>
+   </div>
+   <div class="mt-4 w-50 d-flex justify-content-start">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkBox-all">
+          <label class="form-check-label" for="checkBox-all">
+            Chọn tất cả
+          </label>
+        </div>
+
+        <select class="form-select" style="width:420px; margin: 0 16px" aria-label="Default select example" name="action" required>
+          <option value="">-- Hành động --</option>
+          <option value="delete destroy">Delete destroy</option>
+          <option value="restore">Restore</option>
+        </select>
+
+        <button class="btn btn-primary btn-sm btn-check-all-submit disabled"
+          type="submit" data-bs-toggle="modal" 
+          data-bs-target="#delete-all-modal">
+          Thực hiện
+         </button>
+      </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Tên Bài Viết</th>
+          <th scope="col">Nội dung bài viết</th>
+          <th scope="col">Thời gian xóa</th>
+          <th scope="col">Chức năng</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each blogs}}
+        <tr>
+           <td>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="blogsCheckedByIDs[]" value="{{this._id}}">
+            </div>
+          </td>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.description}}</td>
+          <td>{{this.deletedAt}}</td>
+          <td>
+            <a href=""  class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+            <a href=""  class="btn btn-link" data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#delete-modal">Xóa vĩnh viễn</a>
+            </td>
+        </tr>
+         {{else}}
+          <tr>
+              <td colspan="5" class="text-center">
+                  Thùng rác trống!!!!<a href="/me/stored/blogs">Trở về blogs</a>         
+              </td>
+          </tr>
+
+        {{/each}}
+       
+
+      </tbody>
+    </table>
+
+</form>
+
+<form name="delete-blog-form" method="POST" ></form>
+<form name="restore-blog-form" method="POST" ></form>
+
+{{!-- Confirm delete blogs --}}
+<div id="delete-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thông báo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn sẽ không khôi phục lại được nữa. Bạn có chắc không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-delete-blog" class="btn btn-danger" >Chắc chắn</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var blogID
+    //when dialog confirm delete
+    var deleteModal = document.getElementById('delete-modal')
+    var btnDeleteBlog = document.getElementById('btn-delete-blog')
+    var deleteForm = document.forms['delete-blog-form']
+    var containerForm = document.forms['form-container']
+    var restoreForm = document.forms['restore-blog-form']
+    var restoreBtn = $('.btn-restore')
+    var checkBoxAll = $('#checkBox-all')
+    var blogsItemsCheckBox = $('input[name="blogsCheckedByIDs[]"]')
+    var checkAllSubmitBtn = $('.btn-check-all-submit')
+    
+   
+
+
+
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget
+       blogID = button.getAttribute('data-id')
+    })
+
+    btnDeleteBlog.onclick = function() {
+        deleteForm.action = '/blogs/' + blogID + '/force?_method=DELETE'
+        deleteForm.submit()
+    } 
+    restoreBtn.click(function(e){
+      e.preventDefault()
+
+      var blogID = $(this).data('id')
+        restoreForm.action = '/blogs/' + blogID + '/restore?_method=PATCH'
+        restoreForm.submit()
+    })
+
+    // checked all-box changed check each box
+    checkBoxAll.change(function(){
+      var isCheckedAll = $(this).prop('checked')
+      blogsItemsCheckBox.prop('checked', isCheckedAll)
+
+      renderCheckedAllSubmitBtn()
+    })
+    // checked each-box changed all-box
+    blogsItemsCheckBox.change(function() {
+      var isCheckedAll = $('input[name="blogsCheckedByIDs[]"]:checked').length === blogsItemsCheckBox.length
+      
+     checkBoxAll.prop('checked', isCheckedAll)
+
+     renderCheckedAllSubmitBtn()
+    })
+    // Submit all checked 
+    checkAllSubmitBtn.on('click', function(e){
+      containerForm.submit()
+    })
+
+
+    function renderCheckedAllSubmitBtn(){
+      var checkedCount = $('input[name="blogsCheckedByIDs[]"]:checked').length
+       
+       if(checkedCount) {
+         checkAllSubmitBtn.removeClass('disabled')
+       }else {
+         checkAllSubmitBtn.addClass('disabled')
+       }
+    }
+    
+  })
+</script>

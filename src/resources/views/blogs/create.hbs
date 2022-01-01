@@ -1,0 +1,23 @@
+<div class="mt-4" style="max-width: 50%;">
+     <a href="/me/stored/blogs" style="color: black; font-size: 36px;"><i class="fas fa-chevron-left"></i></a>
+
+    <h3>Viết bài mới: </h3>
+
+    <form  method="post" action="/blogs/store">
+        <div class="mb-3">
+            <label for="name" class="form-label">Tiêu đề</label>
+            <input type="text" class="form-control" id="name" name="name">
+         </div>
+
+          <div class="mb-3">
+            <label for="img" class="form-label">Path image</label>
+            <input type="text" class="form-control" id="img" name="img">
+         </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Nội dung: </label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark">Thêm bài viết</button>
+    </form>
+</div>
