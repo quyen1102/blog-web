@@ -4,7 +4,7 @@ require('dotenv').config()
 
 const path = require('path')
 const express = require('express')
-const morgan = require('morgan')
+// const morgan = require('morgan')
 var methodOverride = require('method-override')
 const handlebars  = require('express-handlebars')
 
