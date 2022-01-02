@@ -1,3 +1,6 @@
+require('dotenv').config()
+
+
 
 const path = require('path')
 const express = require('express')
@@ -9,10 +12,10 @@ const route = require('./routers')
 const db = require('./config/db')
 
 // Connect to DB
-db.connect()
+db.connect(process.env.MONGODB_URI)
 
 const app = express()
-const port = 3000
+const port = process.env.PORT ||3000
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -45,5 +48,5 @@ app.set('views', path.join(__dirname,  'resources','views'));
 route(app)
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Sever listen prort on ${port}`)
 })

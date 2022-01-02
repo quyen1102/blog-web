@@ -1,9 +1,10 @@
+
 const mongoose = require('mongoose')
 
 
-async function connect() {
+async function connect(url) {
     try {
-        await mongoose.connect('mongodb://localhost:27017/blog_learnF8_dev')
+        await mongoose.connect(url)
 
         console.log('Connect successfully!!!')
     } catch (error) {
